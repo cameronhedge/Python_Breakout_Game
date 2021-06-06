@@ -1,10 +1,8 @@
 from tkinter import *
-from tkinter import ttk, Label
 from paddle import Paddle
 from ball import Ball
 from brick import Brick
 from random import choice
-import os
 
 # --------------------- GAME VARIABLES --------------------- #
 key_presses = {}
@@ -28,10 +26,12 @@ game_area = Canvas(window, width=CANVAS_WIDTH, height=CANVAS_HEIGHT, bg="black")
 game_area.grid(column=0, row=0)
 game_area.configure(bg="orange")
 
+# --------------------- SHOWN AT GAME START --------------------- #
 def menu():
     game_area.create_text(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 - 12, text="Welcome to Breakout!", font=("Helvetica", 24, "bold"), tags="menu")
     game_area.create_text(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 28, text="Press ENTER to start. Then SPACE to serve.", font=("Helvetica", 12, "italic"), tags="menu")
 
+# --------------------- FUNCTION CALLED WHEN ENTER IS PRESSED, GAME START --------------------- #
 def start_game(e):
     global in_play, paddle, ball
     if not in_play:
@@ -50,7 +50,6 @@ def start_game(e):
                               font=("Helvetica", 10, "bold"), tags="lives")
         movement()
 
-
 # --------------------- CREATE BRICK --------------------- #
 def create_area():
     brick_count = 0
@@ -66,8 +65,7 @@ def create_area():
             bricks.append(brick)
             brick_count += 1
 
-
-
+# --------------------- CALLED AT END OF GAME IF NO LIVES OR NO BRICKS --------------------- #
 def end_game():
     global in_play
     in_play = False
@@ -100,8 +98,6 @@ def movement():
         return end_game()
     # Calls the function every 10ms
     window.after(10, movement)
-
-
 
 # --------------------- KEYPRESS EVENTS --------------------- #
 def key_event(e):
